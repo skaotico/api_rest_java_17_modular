@@ -1,0 +1,100 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.5'          // Plugin principal de Spring Boot
+    id 'io.spring.dependency-management' version '1.1.7'   // Maneja versiones de dependencias automáticamente
+}
+
+group = 'com.skaotico'
+version = '0.0.1-SNAPSHOT'
+description = 'servicio rest java portafolio'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)       // Usar Java 17 (LTS)
+    }
+}
+
+repositories {
+    mavenCentral()  // Repositorio central de Maven
+}
+
+dependencies {
+    // --- SPRING BOOT CORE ---
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // Incluye Spring MVC y Tomcat embebido → para crear APIs REST
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // Spring Data JPA + Hibernate → acceso a base de datos con repositorios
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    // Seguridad con Spring Security (filtros, autenticación, autorización)
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    // Recarga automática en desarrollo (hot reload) y herramientas de debug
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+
+
+    // --- LOMBOK ---
+
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    // Genera automáticamente getters, setters, constructores, builders, etc.
+    // en tiempo de compilación → menos boilerplate en clases Java
+
+
+    // --- TESTING ---
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // Incluye JUnit 5, Mockito y utilidades para pruebas en Spring Boot
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // Motor de ejecución de JUnit 5 para lanzar los tests
+
+
+    // --- DOCUMENTACIÓN (OpenAPI / Swagger) ---
+
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.11'
+    // Genera documentación OpenAPI 3.0 automáticamente a partir de tus controladores
+    // Incluye Swagger UI → interfaz web en /swagger-ui/index.html
+
+
+    // --- VALIDACIÓN (Jakarta Bean Validation) ---
+
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+    // API de validación estándar (ej: @NotNull, @Size, @Email)
+
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+    // Implementación de referencia de Bean Validation (usada por Spring Boot por debajo)
+
+
+    // --- BASE DE DATOS ---
+
+    runtimeOnly 'org.postgresql:postgresql'
+    // Driver JDBC de PostgreSQL → permite conectar Hibernate/JPA con Postgres
+
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+    // API estándar JPA (entidades, anotaciones como @Entity, @Table, @Id)
+    // OJO: normalmente ya viene transitiva con spring-boot-starter-data-jpa,
+    // aquí es opcional tenerla explícita
+
+    // MAPSTRUCT
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+
+    // --- SEGURIDAD Y JWT (JSON Web Tokens) ---
+
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    // API para crear y validar JWTs (interfaz)
+
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    // Implementación real de JWT (en runtime)
+
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+    // Soporte para parsear JWT usando Jackson (JSON)
+}
+
+tasks.named('test') {
+    useJUnitPlatform()  // Habilita JUnit 5
+}
