@@ -1,1 +1,130 @@
 
+# API REST Java 17 Modular
+
+Este proyecto es una **API REST modular** desarrollada en **Java 17** con **Spring Boot**, diseñada para demostrar buenas prácticas de arquitectura, modularización y uso de herramientas modernas como Lombok, Swagger y JWT.
+
+## Tecnologías y herramientas
+
+- Java 17
+- Spring Boot (Web, Security, JPA, Validation)
+- PostgreSQL como base de datos
+- Lombok para reducir boilerplate (getters, setters, constructores)
+- Swagger / OpenAPI para documentación de la API
+- JWT (JSON Web Tokens) para autenticación y seguridad
+- Docker para contenerización de la API y la base de datos
+
+## Estructura del proyecto
+
+El proyecto está organizado de forma **modular**, cada módulo representa una entidad o funcionalidad:
+
+```
+src/main/java/com/skaotico/servicio/rest/
+│
+├─ usuario/
+│   ├─ controller/  # Controladores REST
+│   ├─ service/     # Interfaces de servicios
+│   ├─ serviceImpl/ # Implementaciones de servicios
+│   ├─ model/       # Entidades JPA
+│   ├─ repository/  # Repositorios JPA
+│   └─ dto/         # Objetos de transferencia de datos
+│
+├─ rol/
+│   └─ ...          # Estructura similar a usuario
+│
+└─ config/          # Configuraciones de Spring, JWT, Swagger
+```
+
+## Swagger
+
+Para documentar la API y probar los endpoints:
+
+- Acceder a `http://localhost:8080/swagger-ui.html` después de levantar la aplicación.
+- Permite generar un **Bearer token** y probar los endpoints protegidos por JWT.
+
+## Lombok
+
+Se utiliza para reducir código repetitivo:
+
+- `@Getter` / `@Setter` para getters y setters
+- `@NoArgsConstructor` / `@AllArgsConstructor` para constructores
+- `@Builder` para crear objetos de manera fluida
+
+> Asegúrate de tener instalado el plugin de Lombok en tu IDE para evitar errores de compilación.
+
+## Configuración de Docker
+
+El proyecto incluye un **Docker Compose** para levantar la API junto con PostgreSQL en la misma red.
+
+Archivo `docker-compose.yml`:
+
+```yaml
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15
+    container_name: tutor-db
+    environment:
+      POSTGRES_DB: tutor
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5432:5432"
+
+  api:
+    build: .
+    container_name: api-rest-java
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/tutor
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin123
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+```
+
+### Comandos para levantar el proyecto
+
+1. Construir y levantar contenedores:
+
+```bash
+docker-compose up --build
+```
+
+2. Ver los logs de la API:
+
+```bash
+docker logs -f api-rest-java
+```
+
+3. Detener los contenedores:
+
+```bash
+docker-compose down
+```
+
+> Con esto, la API y la base de datos estarán en la **misma red de Docker** y se comunicarán automáticamente.
+
+## Comandos útiles de Gradle
+
+- Compilar proyecto:
+
+```bash
+./gradlew build
+```
+
+- Ejecutar pruebas:
+
+```bash
+./gradlew test
+```
+
+- Ejecutar aplicación localmente:
+
+```bash
+./gradlew bootRun -Dspring.profiles.active=local
+```
+
+---
