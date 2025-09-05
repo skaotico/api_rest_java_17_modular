@@ -1,14 +1,16 @@
-# Imagen base con Java 17
-FROM openjdk:17
+# Imagen base con JDK completo
+FROM openjdk:17-jdk
 
-# Crear directorio dentro del contenedor
+# Directorio de trabajo
 WORKDIR /app
 
-# Copiar el JAR generado por Gradle usando comodín
+# Copiar JAR y wait-for-it.sh
 COPY build/libs/*.jar /app/app.jar
+COPY wait-for-it.sh /app/wait-for-it.sh
+RUN chmod +x /app/wait-for-it.sh
 
-# Exponer el puerto de la app
+# Exponer puerto
 EXPOSE 8080
 
-# Comando para ejecutar la aplicación
-CMD ["java", "-jar", "/app/app.jar"]
+# Entrypoint usando wait-for-it.sh para esperar PostgreSQL
+ENTRYPOINT ["/app/wait-for-it.sh", "postgres_db:5432", "--timeout=60", "--strict", "--", "java", "-jar", "/app/app.jar"]

@@ -1,4 +1,3 @@
-
 # API REST Java 17 Modular
 
 Este proyecto es una **API REST modular** desarrollada en **Java 17** con **Spring Boot**, diseñada para demostrar buenas prácticas de arquitectura, modularización y uso de herramientas modernas como Lombok, Swagger y JWT.
@@ -88,43 +87,70 @@ services:
 ### Comandos para levantar el proyecto
 
 1. Construir y levantar contenedores:
-
 ```bash
 docker-compose up --build
 ```
 
 2. Ver los logs de la API:
-
 ```bash
 docker logs -f api-rest-java
 ```
 
 3. Detener los contenedores:
-
 ```bash
 docker-compose down
 ```
 
 > Con esto, la API y la base de datos estarán en la **misma red de Docker** y se comunicarán automáticamente.
 
+## Limpieza y reconstrucción de Docker
+
+Si necesitas reiniciar todo, eliminar contenedores e imágenes previas y construir desde cero:
+
+### 1. Detener y eliminar contenedores
+```bash
+docker-compose down
+```
+
+### 2. Eliminar todas las imágenes del proyecto (opcional)
+```bash
+docker rmi api-rest-java tutor-db
+```
+
+> ⚠️ Esto eliminará las imágenes construidas localmente, asegúrate de no borrar otras que necesites.
+
+### 3. Limpiar contenedores, volúmenes y redes huérfanas
+```bash
+docker system prune -f
+docker volume prune -f
+```
+
+### 4. Reconstruir la imagen sin usar cache
+```bash
+docker-compose build --no-cache
+```
+
+### 5. Levantar contenedores
+```bash
+docker-compose up
+```
+
+> Con esto garantizas que **se descarguen todas las dependencias desde cero** y que no quede ninguna configuración antigua que pueda interferir.
+
 ## Comandos útiles de Gradle
 
 - Compilar proyecto:
-
 ```bash
 ./gradlew build
 ```
 
 - Ejecutar pruebas:
-
 ```bash
 ./gradlew test
 ```
 
 - Ejecutar aplicación localmente:
-
 ```bash
 ./gradlew bootRun -Dspring.profiles.active=local
 ```
 
----
