@@ -1,14 +1,42 @@
+version: '3.9'
+
+###########################################################
+# Servicio de Base de Datos PostgreSQL
+###########################################################
 services:
   postgres_db:
-    image: postgres:15
-    container_name: postgres_db
+    image: postgres:15  # Imagen oficial de PostgreSQL 15
+    container_name: postgres_db  # Nombre del contenedor
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-      POSTGRES_DB: tutor
+      POSTGRES_USER: admin          # Usuario administrador de la DB
+      POSTGRES_PASSWORD: admin123   # Contraseña del usuario admin
+      POSTGRES_DB: tutor            # Nombre de la base de datos principal
+    networks:
+      - api-network  # Red Docker donde se conecta con otros servicios
+
+  ###########################################################
+  # Servicio de MinIO (Almacenamiento de objetos)
+  ###########################################################
+  minio:
+    image: minio/minio  # Imagen oficial de MinIO
+    container_name: minio  # Nombre del contenedor
+    ports:
+      - "9000:9000"  # API de MinIO
+      - "9001:9001"  # Consola web
+    environment:
+      MINIO_ROOT_USER: minioadmin       # Usuario root de MinIO
+      MINIO_ROOT_PASSWORD: minioadmin   # Contraseña root de MinIO
+      MINIO_REGION: us-east-1           # Región configurable
+      MINIO_BROWSER: "on"               # Habilita consola web
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio-data:/data
     networks:
       - api-network
 
+  ###########################################################
+  # Servicio de API REST Java
+  ###########################################################
   api-rest-java:
     build: .
     container_name: api-rest-java
@@ -16,12 +44,25 @@ services:
       - "8080:8080"
     depends_on:
       - postgres_db
+      - minio
     networks:
       - api-network
     environment:
-      SERVER_PORT: 8080   # ← aquí se fuerza Spring Boot a usar 8080
-      SPRING_PROFILES_ACTIVE: docker  # opcional, si tienes un profile específico para Docker
+      SERVER_PORT: 8080
+      SPRING_PROFILES_ACTIVE: docker
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_USER: minioadmin
+      MINIO_PASS: minioadmin
 
+###########################################################
+# Volúmenes persistentes
+###########################################################
+volumes:
+  minio-data:
+
+###########################################################
+# Red de Docker para la comunicación interna entre contenedores
+###########################################################
 networks:
   api-network:
     driver: bridge

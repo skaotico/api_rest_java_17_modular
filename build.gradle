@@ -43,6 +43,7 @@ dependencies {
     // Genera automáticamente getters, setters, constructores, builders, etc.
     // en tiempo de compilación → menos boilerplate en clases Java
 
+    implementation 'io.minio:minio:8.5.10'
 
     // --- TESTING ---
 

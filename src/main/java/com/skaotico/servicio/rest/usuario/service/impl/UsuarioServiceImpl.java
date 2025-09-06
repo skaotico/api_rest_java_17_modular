@@ -2,9 +2,11 @@ package com.skaotico.servicio.rest.usuario.service.impl;
 
 import com.skaotico.servicio.rest.rol.model.RolUsuarioEnum;
 import com.skaotico.servicio.rest.usuario.dto.UsuarioCreateDTO;
+import com.skaotico.servicio.rest.usuario.mapper.UsuarioMapper;
 import com.skaotico.servicio.rest.usuario.model.Usuario;
 import com.skaotico.servicio.rest.usuario.repository.UsuarioRepository;
 import com.skaotico.servicio.rest.usuario.service.UsuarioService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService {
 
 
@@ -21,7 +24,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-
+    private final UsuarioMapper usuarioMapper;
 
     /**
      * Crea un nuevo usuario en la base de datos.
@@ -37,11 +40,11 @@ public class UsuarioServiceImpl implements UsuarioService {
                 throw new RuntimeException("El email ya está registrado: " + usuarioDto.getEmail());
             }
 */
-            Usuario usuario = new Usuario();
-            usuario.setNombre(usuarioDto.getNombre());
-            usuario.setApellido(usuarioDto.getApellido());
-            usuario.setEmail(usuarioDto.getEmail());
+
+            Usuario usuario = usuarioMapper.toModel(usuarioDto);
             usuario.setPasswordHash(passwordEncoder.encode(usuarioDto.getPassword()));
+
+
 
 
             return usuarioRepository.save(usuario);
