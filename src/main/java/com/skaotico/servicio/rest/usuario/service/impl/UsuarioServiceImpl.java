@@ -45,7 +45,6 @@ public class UsuarioServiceImpl implements UsuarioService {
                 throw new RuntimeException("El email ya está registrado: " + usuarioDto.getEmail());
             }
 */
-
             Usuario usuario = usuarioMapper.toModel(usuarioDto);
             usuario.setPassword(passwordEncoder.encode(usuarioDto.getPassword()));
 
