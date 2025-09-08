@@ -24,7 +24,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
     private final UsuarioMapper usuarioMapper;
+
+    public UsuarioServiceImpl(UsuarioMapper usuarioMapper) {
+        this.usuarioMapper = usuarioMapper;
+    }
 
     /**
      * Crea un nuevo usuario en la base de datos.
@@ -42,7 +47,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 */
 
             Usuario usuario = usuarioMapper.toModel(usuarioDto);
-            usuario.setPasswordHash(passwordEncoder.encode(usuarioDto.getPassword()));
+            usuario.setPassword(passwordEncoder.encode(usuarioDto.getPassword()));
 
 
 

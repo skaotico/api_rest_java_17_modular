@@ -48,7 +48,7 @@ public class AuthServiceImpl implements AuthService  {
         Usuario usuario = usuarioService.obtenerUsuarioPorEmail(loginDto.getEmail());
         System.out.println("usuario encontrado " + usuario);
 
-        if (!passwordEncoder.matches(loginDto.getPassword(), usuario.getPasswordHash())) {
+        if (!passwordEncoder.matches(loginDto.getPassword(), usuario.getPassword())) {
             throw new RuntimeException("Credenciales incorrectas");
         }
 

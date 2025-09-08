@@ -18,15 +18,16 @@ public abstract class UsuarioMapper implements BaseMapper<UsuarioCreateDTO, Usua
 
     @Override
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "passwordHash", ignore = true) // se asigna en @AfterMapping
+
     @Mapping(target = "creadoEn", ignore = true)
     @Mapping(target = "actualizadoEn", ignore = true)
+
     public abstract Usuario toModel(UsuarioCreateDTO dto);
 
     @AfterMapping
     protected void encodePassword(UsuarioCreateDTO dto, @MappingTarget Usuario usuario) {
         if (dto.getPassword() != null) {
-            usuario.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
+            usuario.setPassword(passwordEncoder.encode(dto.getPassword()));
         }
     }
 }

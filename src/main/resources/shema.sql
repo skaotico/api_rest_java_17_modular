@@ -51,9 +51,9 @@ CREATE TABLE arbol (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     especie TEXT,
     area_id BIGINT NOT NULL REFERENCES area(id),
-    gps_point POINT
+    gps_point POINT,
+    metadata JSONB
 );
-
 -- =====================================================
 -- Tabla: tutor
 -- Descripción: Dispositivos que miden la humedad
@@ -85,7 +85,7 @@ CREATE TABLE usuario (
     nombre TEXT NOT NULL,
     apellido TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
-    password_hash TEXT NOT NULL,
+    password TEXT NOT NULL,
     creado_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     actualizado_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

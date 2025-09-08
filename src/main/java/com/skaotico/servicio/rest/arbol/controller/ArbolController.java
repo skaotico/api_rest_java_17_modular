@@ -1,5 +1,6 @@
 package com.skaotico.servicio.rest.arbol.controller;
 
+import com.skaotico.servicio.rest.arbol.model.ArbolModel;
 import com.skaotico.servicio.rest.arbol.service.ArbolService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -7,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * Controlador REST para la gestión de imágenes relacionadas con "Arbol".
@@ -49,5 +52,33 @@ public class ArbolController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error al subir la imagen: " + e.getMessage());
         }
+    }
+
+    @PostMapping
+    public ResponseEntity<ArbolModel> crear(@RequestBody ArbolModel arbol) {
+        return ResponseEntity.ok(arbolService.crear(arbol));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        arbolService.eliminar(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ArbolModel> buscarPorId(@PathVariable Long id) {
+        return arbolService.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ArbolModel>> listarTodos() {
+        return ResponseEntity.ok(arbolService.listarTodos());
+    }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<List<ArbolModel>> listarPorNombre(@RequestParam String especie) {
+        return ResponseEntity.ok(arbolService.listarPorNombre(especie));
     }
 }

@@ -1,5 +1,6 @@
 package com.skaotico.servicio.rest.usuario.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.skaotico.servicio.rest.rol.model.RolUsuarioEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -57,8 +58,9 @@ public class Usuario {
      * Hash de la contraseña del usuario.
      * No se almacena la contraseña en texto plano.
      */
-    @Column(name = "password_hash", nullable = false)
-    private String passwordHash;
+    @JsonIgnore
+    @Column(name = "password", nullable = false)
+    private String password;
 
     /**
      * Fecha de creación del usuario.
