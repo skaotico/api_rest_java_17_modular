@@ -1,6 +1,11 @@
 package com.skaotico.servicio.rest.arbol.service.impl;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.skaotico.servicio.rest.arbol.dto.ArbolCreateDto;
+import com.skaotico.servicio.rest.arbol.dto.ImagenResponse;
+import com.skaotico.servicio.rest.arbol.mapper.ArbolMapper;
 import com.skaotico.servicio.rest.arbol.model.ArbolModel;
 import com.skaotico.servicio.rest.arbol.repository.ArbolRepository;
 import com.skaotico.servicio.rest.arbol.service.ArbolService;
@@ -12,33 +17,40 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ArbolServiceImpl implements ArbolService {
 
 
     private final ArbolRepository arbolRepository;
+    private final ArbolMapper arbolMapper;
 
     private final MinioService minioService;
     private static final String BUCKET = "arbol-images";
 
-    public ArbolServiceImpl(ArbolRepository arbolRepository, MinioService minioService) {
+    public ArbolServiceImpl(ArbolRepository arbolRepository, ArbolMapper arbolMapper, MinioService minioService) {
         this.arbolRepository = arbolRepository;
+        this.arbolMapper = arbolMapper;
         this.minioService = minioService;
     }
 
+    /**
+     * Guarda un archivo en MinIO y devuelve la información de la imagen en JSON.
+     *
+     * @param file el archivo a subir
+     * @return un objeto con el ID único y la URL de la imagen
+     * @throws Exception si ocurre un error durante la subida o si el archivo está vacío
+     */
     @Override
-    public String guardarImagen(MultipartFile file) throws Exception {
+    public ImagenResponse guardarImagen(MultipartFile file) throws Exception {
         if (file.isEmpty()) {
             throw new IllegalArgumentException("El archivo está vacío");
         }
 
-
         minioService.createBucketIfNotExists(BUCKET);
 
-
-        String objectName = file.getOriginalFilename();
-
+        String objectName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
 
         minioService.uploadFile(
                 BUCKET,
@@ -48,12 +60,17 @@ public class ArbolServiceImpl implements ArbolService {
                 file.getContentType()
         );
 
+        String url = minioService.getFileUrl(BUCKET, objectName);
 
-        return objectName;
+        return new ImagenResponse(objectName, url);
     }
 
     @Override
-    public ArbolModel crear(ArbolModel arbol) {
+    public ArbolModel crear(ArbolCreateDto arbolDto) {
+        ArbolModel arbol = arbolMapper.toEntity(arbolDto);
+        if (arbolDto.getMetadata() != null) {
+            arbol.setMetadata(new ObjectMapper().valueToTree(arbolDto.getMetadata()));
+        }
         return arbolRepository.save(arbol);
     }
 

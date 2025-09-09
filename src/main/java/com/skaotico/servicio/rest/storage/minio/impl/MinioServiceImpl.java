@@ -60,6 +60,19 @@ public class MinioServiceImpl implements MinioService {
         );
     }
 
+    /**
+     * Método de conveniencia que devuelve un URL pre-firmado por defecto con 1 hora de validez.
+     *
+     * @param bucket     nombre del bucket
+     * @param objectPath nombre del archivo en el bucket
+     * @return URL pre-firmado de acceso
+     * @throws Exception en caso de error
+     */
+    @Override
+    public String getFileUrl(String bucket, String objectPath) throws Exception {
+        return getPresignedUrl(bucket, objectPath, 3600);
+    }
+
     @Override
     public List<String> listFiles(String bucket, String prefix) throws Exception {
         Iterable<Result<Item>> results = minioClient.listObjects(

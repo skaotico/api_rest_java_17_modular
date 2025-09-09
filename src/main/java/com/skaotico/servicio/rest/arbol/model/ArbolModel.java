@@ -1,13 +1,14 @@
 package com.skaotico.servicio.rest.arbol.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.skaotico.servicio.rest.area.model.Area;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Map;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Getter
@@ -24,14 +25,14 @@ public class ArbolModel {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "area_id", nullable = false)
+    @JsonIgnore
     private Area area;
 
-    @Column(name = "gps_point", columnDefinition = "POINT")
+    @Column(name = "gps_point")
     private String gpsPoint;
 
-    @Column(columnDefinition = "jsonb")
-    @Convert(converter = JsonConverter.class)
-    private Map<String, Object> metadata;
-
+    @Column(name = "metadata", columnDefinition = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
+    private JsonNode metadata;
 
 }

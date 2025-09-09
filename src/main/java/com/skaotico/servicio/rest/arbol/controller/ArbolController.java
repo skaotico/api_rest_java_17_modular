@@ -1,5 +1,7 @@
 package com.skaotico.servicio.rest.arbol.controller;
 
+import com.skaotico.servicio.rest.arbol.dto.ArbolCreateDto;
+import com.skaotico.servicio.rest.arbol.dto.ImagenResponse;
 import com.skaotico.servicio.rest.arbol.model.ArbolModel;
 import com.skaotico.servicio.rest.arbol.service.ArbolService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,22 +42,22 @@ public class ArbolController {
             }
     )
     @PostMapping(value = "/imagen", consumes = "multipart/form-data")
-    public ResponseEntity<String> subirImagen(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<ImagenResponse> subirImagen(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
-            return ResponseEntity.badRequest().body("No se recibió ningún archivo");
+            new ImagenResponse(null, "No se recibió ningún archivo");
         }
         try {
-            String objectName = arbolService.guardarImagen(file);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body("Archivo guardado: " + objectName);
+            ImagenResponse objectName = arbolService.guardarImagen(file);
+            return ResponseEntity.ok(objectName);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error al subir la imagen: " + e.getMessage());
+            return ResponseEntity.status(500)
+                    .body(new ImagenResponse(null, "Ocurrió un error al subir la imagen: " + e.getMessage()));
         }
     }
 
     @PostMapping
-    public ResponseEntity<ArbolModel> crear(@RequestBody ArbolModel arbol) {
+    public ResponseEntity<ArbolModel> crear(@RequestBody ArbolCreateDto arbol) {
+        System.out.println("ingresando a crear con"+arbol.toString());
         return ResponseEntity.ok(arbolService.crear(arbol));
     }
 

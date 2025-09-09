@@ -55,4 +55,6 @@ public interface MinioService {
      * @throws Exception en caso de error
      */
     void createBucketIfNotExists(String bucket) throws Exception;
+
+    public String getFileUrl(String bucket, String objectPath)throws Exception;
 }

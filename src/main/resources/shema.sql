@@ -51,7 +51,7 @@ CREATE TABLE arbol (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     especie TEXT,
     area_id BIGINT NOT NULL REFERENCES area(id),
-    gps_point POINT,
+    gps_point TEXT,
     metadata JSONB
 );
 -- =====================================================
