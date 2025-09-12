@@ -1,4 +1,4 @@
-package com.skaotico.servicio.rest.arbol.model;
+package com.skaotico.servicio.rest.util;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,13 +14,13 @@ public class JsonNodeConverter implements AttributeConverter<JsonNode, String> {
 
     @Override
     public String convertToDatabaseColumn(JsonNode attribute) {
-        return attribute == null ? null : attribute.toString(); // JsonNode → String JSON
+        return attribute == null ? null : attribute.toString();
     }
 
     @Override
     public JsonNode convertToEntityAttribute(String dbData) {
         try {
-            return dbData == null ? null : mapper.readTree(dbData); // String JSON → JsonNode
+            return dbData == null ? null : mapper.readTree(dbData);
         } catch (IOException e) {
             throw new IllegalArgumentException("Error leyendo JSON a JsonNode", e);
         }

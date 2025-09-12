@@ -1,9 +1,8 @@
 package com.skaotico.servicio.rest.area.service.impl;
 
-import com.skaotico.servicio.rest.area.dto.AreaDTO;
+import com.skaotico.servicio.rest.area.dto.Area;
 import com.skaotico.servicio.rest.area.dto.CreateAreaDTO;
 import com.skaotico.servicio.rest.area.mapper.AreaMapper;
-import com.skaotico.servicio.rest.area.model.Area;
 import com.skaotico.servicio.rest.area.model.TipoAreaEnum;
 import com.skaotico.servicio.rest.area.repository.AreaRepository;
 import com.skaotico.servicio.rest.area.service.AreaService;
@@ -21,29 +20,29 @@ public class AreaServiceImpl implements AreaService {
     private final AreaMapper areaMapper;
 
     @Override
-    public AreaDTO createArea(CreateAreaDTO createAreaDTO) {
-        Area area = areaMapper.toModel(createAreaDTO);
-        Area saved = areaRepository.save(area);
+    public Area createArea(CreateAreaDTO createAreaDTO) {
+        com.skaotico.servicio.rest.area.model.Area area = areaMapper.toModel(createAreaDTO);
+        com.skaotico.servicio.rest.area.model.Area saved = areaRepository.save(area);
         return mapToDTO(saved);
     }
 
     @Override
-    public AreaDTO getAreaById(Long id) {
-        Area area = areaRepository.findById(id)
+    public Area getAreaById(Long id) {
+        com.skaotico.servicio.rest.area.model.Area area = areaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Area not found with id " + id));
         return mapToDTO(area);
     }
 
     @Override
-    public List<AreaDTO> getAllAreas() {
+    public List<Area> getAllAreas() {
         return areaRepository.findAll().stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public AreaDTO updateArea(Long id, AreaDTO areaDTO) {
-        Area area = areaRepository.findById(id)
+    public Area updateArea(Long id, Area areaDTO) {
+        com.skaotico.servicio.rest.area.model.Area area = areaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Area not found with id " + id));
 
         area.setNombre(areaDTO.getNombre());
@@ -53,7 +52,7 @@ public class AreaServiceImpl implements AreaService {
             area.setTipoArea(TipoAreaEnum.valueOf(areaDTO.getTipoArea()));
         }
 
-        Area updated = areaRepository.save(area);
+        com.skaotico.servicio.rest.area.model.Area updated = areaRepository.save(area);
         return mapToDTO(updated);
     }
 
@@ -62,8 +61,8 @@ public class AreaServiceImpl implements AreaService {
         areaRepository.deleteById(id);
     }
 
-    private AreaDTO mapToDTO(Area area) {
-        return AreaDTO.builder()
+    private Area mapToDTO(com.skaotico.servicio.rest.area.model.Area area) {
+        return Area.builder()
                 .id(area.getId())
                 .nombre(area.getNombre())
                 .recintoId(area.getRecintoId())
@@ -72,8 +71,8 @@ public class AreaServiceImpl implements AreaService {
                 .build();
     }
 
-    private Area mapToEntity(AreaDTO dto) {
-        return Area.builder()
+    private com.skaotico.servicio.rest.area.model.Area mapToEntity(Area dto) {
+        return com.skaotico.servicio.rest.area.model.Area.builder()
                 .nombre(dto.getNombre())
                 .recintoId(dto.getRecintoId())
                 .superficieM2(dto.getSuperficieM2())

@@ -70,7 +70,8 @@ public class MinioServiceImpl implements MinioService {
      */
     @Override
     public String getFileUrl(String bucket, String objectPath) throws Exception {
-        return getPresignedUrl(bucket, objectPath, 3600);
+        int maxExpiry = 7 * 24 * 60 * 60;
+        return getPresignedUrl(bucket, objectPath, maxExpiry);
     }
 
     @Override
@@ -100,4 +101,31 @@ public class MinioServiceImpl implements MinioService {
                 .object(objectPath)
                 .build());
     }
+    /**
+     * Obtiene el contenido de un archivo almacenado en MinIO como un arreglo de bytes.
+     * <p>
+     * Este método se conecta al bucket especificado en MinIO y lee el objeto identificado
+     * por {@code objectPath}. Devuelve todo el contenido del archivo como un arreglo de bytes,
+     * lo cual es útil para enviar la información directamente al cliente o para procesarla en memoria.
+     * </p>
+     *
+     * @param bucket     el nombre del bucket donde se encuentra el archivo en MinIO
+     * @param objectPath la ruta u objeto dentro del bucket que se desea leer
+     * @return un arreglo de bytes ({@code byte[]}) con el contenido completo del archivo
+     * @throws Exception si ocurre algún error al conectarse a MinIO, si el bucket u objeto
+     *                   no existen, o si ocurre algún problema de lectura del InputStream
+     *
+     * @implNote Este método utiliza try-with-resources para asegurar que el InputStream se cierre
+     *           correctamente después de leer los datos, evitando fugas de memoria.
+     */
+    public byte[] getFileBytes(String bucket, String objectPath) throws Exception {
+        try (InputStream is = minioClient.getObject(
+                GetObjectArgs.builder()
+                        .bucket(bucket)
+                        .object(objectPath)
+                        .build())) {
+            return is.readAllBytes();
+        }
+    }
+
 }

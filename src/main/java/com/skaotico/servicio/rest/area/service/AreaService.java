@@ -1,19 +1,19 @@
 package com.skaotico.servicio.rest.area.service;
 
-import com.skaotico.servicio.rest.area.dto.AreaDTO;
+import com.skaotico.servicio.rest.area.dto.Area;
 import com.skaotico.servicio.rest.area.dto.CreateAreaDTO;
 
 import java.util.List;
 
 public interface AreaService {
 
-    AreaDTO createArea(CreateAreaDTO createAreaDTO);
+    Area createArea(CreateAreaDTO createAreaDTO);
 
-    AreaDTO getAreaById(Long id);
+    Area getAreaById(Long id);
 
-    List<AreaDTO> getAllAreas();
+    List<Area> getAllAreas();
 
-    AreaDTO updateArea(Long id, AreaDTO areaDTO);
+    Area updateArea(Long id, Area area);
 
     void deleteArea(Long id);
 }

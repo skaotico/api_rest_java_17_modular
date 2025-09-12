@@ -54,6 +54,7 @@ CREATE TABLE arbol (
     gps_point TEXT,
     metadata JSONB
 );
+
 -- =====================================================
 -- Tabla: tutor
 -- Descripción: Dispositivos que miden la humedad
@@ -77,6 +78,15 @@ CREATE TABLE lectura (
 );
 
 -- =====================================================
+-- Tabla: nacionalidad
+-- Descripción: Nacionalidades disponibles para usuarios
+-- =====================================================
+CREATE TABLE nacionalidad (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- =====================================================
 -- Tabla: usuario
 -- Descripción: Usuarios del sistema con roles
 -- =====================================================
@@ -86,6 +96,18 @@ CREATE TABLE usuario (
     apellido TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
+    celular VARCHAR(20),
+    telefono_fijo VARCHAR(20),
+    rut VARCHAR(15),
+    direccion TEXT,
+    ciudad TEXT,
+    nacionalidad_id INT REFERENCES nacionalidad(id), -- referencia a nacionalidad
+    fecha_nacimiento DATE,
+    genero CHAR(1) CHECK (genero IN ('MASCULINO', 'FEMENINO', 'OTRO')),
+    activo BOOLEAN DEFAULT TRUE,
+    ultimo_login TIMESTAMP,
+    foto_perfil VARCHAR(50),
+    metadata JSONB,
     creado_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     actualizado_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -109,6 +131,7 @@ CREATE TABLE acceso_usuario (
 CREATE TABLE rol (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     nombre rol_usuario_enum UNIQUE NOT NULL,
+    aldfhjlasdkjfklñas
     descripcion TEXT
 );
 
@@ -121,26 +144,3 @@ CREATE TABLE usuario_rol (
     PRIMARY KEY (usuario_id, rol_id)
 );
 
--- =====================================================
--- Ejemplo JSONB para datos_ambientales
--- =====================================================
-/*
-{
-  "temperatura": 11.8,           // en °C
-  "velocidad_viento": 2.6,       // en km/h
-  "direccion_viento": 214,       // en grados
-  "es_dia": true,                // true = día, false = noche
-  "latitude": -33.5,             // latitud del lugar
-  "longitude": -70.625,          // longitud del lugar
-  "elevacion": 538,              // metros sobre el nivel del mar
-  "timezone": "GMT",             // zona horaria
-  "timezone_abbreviation": "GMT",
-  "utc_offset_seconds": 0,
-  "weathercode": 3,              // código de clima WMO
-  "interval": 900,               // intervalo de actualización en segundos
-  "generationtime_ms": 0.046,    // tiempo de generación del dato
-  "humedad_suelo": 45.3,         // % de humedad del suelo
-  "estado_alerta": false,        // alerta de humedad
-  "nota": "No se detectan problemas" // observación manual
-}
-*/

@@ -2,7 +2,6 @@ package com.skaotico.servicio.rest.auth.service;
 
 import com.skaotico.servicio.rest.auth.dto.AuthResponseDto;
 import com.skaotico.servicio.rest.auth.dto.LoginDto;
-import com.skaotico.servicio.rest.auth.dto.LoginResponseDto;
 
 /**
  * Servicio de autenticación para manejar login de usuarios.

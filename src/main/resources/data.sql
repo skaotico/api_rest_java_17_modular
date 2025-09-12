@@ -1,0 +1,145 @@
+-- =====================================================
+-- INSERT: Nacionalidades
+-- =====================================================
+
+-- América
+INSERT INTO nacionalidad (nombre) VALUES ('Chileno');
+INSERT INTO nacionalidad (nombre) VALUES ('Argentino');
+INSERT INTO nacionalidad (nombre) VALUES ('Boliviano');
+INSERT INTO nacionalidad (nombre) VALUES ('Brasileño');
+INSERT INTO nacionalidad (nombre) VALUES ('Canadiense');
+INSERT INTO nacionalidad (nombre) VALUES ('Colombiano');
+INSERT INTO nacionalidad (nombre) VALUES ('Costarricense');
+INSERT INTO nacionalidad (nombre) VALUES ('Cubano');
+INSERT INTO nacionalidad (nombre) VALUES ('Dominicano');
+INSERT INTO nacionalidad (nombre) VALUES ('Ecuatoriano');
+INSERT INTO nacionalidad (nombre) VALUES ('Estadounidense');
+INSERT INTO nacionalidad (nombre) VALUES ('Guatemalteco');
+INSERT INTO nacionalidad (nombre) VALUES ('Hondureño');
+INSERT INTO nacionalidad (nombre) VALUES ('Mexicano');
+INSERT INTO nacionalidad (nombre) VALUES ('Nicaragüense');
+INSERT INTO nacionalidad (nombre) VALUES ('Panameño');
+INSERT INTO nacionalidad (nombre) VALUES ('Paraguayo');
+INSERT INTO nacionalidad (nombre) VALUES ('Peruano');
+INSERT INTO nacionalidad (nombre) VALUES ('Uruguayo');
+INSERT INTO nacionalidad (nombre) VALUES ('Venezolano');
+
+-- Europa
+INSERT INTO nacionalidad (nombre) VALUES ('Alemán');
+INSERT INTO nacionalidad (nombre) VALUES ('Austriaco');
+INSERT INTO nacionalidad (nombre) VALUES ('Belga');
+INSERT INTO nacionalidad (nombre) VALUES ('Búlgaro');
+INSERT INTO nacionalidad (nombre) VALUES ('Croata');
+INSERT INTO nacionalidad (nombre) VALUES ('Danés');
+INSERT INTO nacionalidad (nombre) VALUES ('Eslovaco');
+INSERT INTO nacionalidad (nombre) VALUES ('Esloveno');
+INSERT INTO nacionalidad (nombre) VALUES ('Español');
+INSERT INTO nacionalidad (nombre) VALUES ('Estonio');
+INSERT INTO nacionalidad (nombre) VALUES ('Finlandés');
+INSERT INTO nacionalidad (nombre) VALUES ('Francés');
+INSERT INTO nacionalidad (nombre) VALUES ('Griego');
+INSERT INTO nacionalidad (nombre) VALUES ('Húngaro');
+INSERT INTO nacionalidad (nombre) VALUES ('Irlandés');
+INSERT INTO nacionalidad (nombre) VALUES ('Islandés');
+INSERT INTO nacionalidad (nombre) VALUES ('Italiano');
+INSERT INTO nacionalidad (nombre) VALUES ('Letón');
+INSERT INTO nacionalidad (nombre) VALUES ('Lituano');
+INSERT INTO nacionalidad (nombre) VALUES ('Luxemburgués');
+INSERT INTO nacionalidad (nombre) VALUES ('Maltés');
+INSERT INTO nacionalidad (nombre) VALUES ('Neerlandés');
+INSERT INTO nacionalidad (nombre) VALUES ('Noruego');
+INSERT INTO nacionalidad (nombre) VALUES ('Polaco');
+INSERT INTO nacionalidad (nombre) VALUES ('Portugués');
+INSERT INTO nacionalidad (nombre) VALUES ('Rumano');
+INSERT INTO nacionalidad (nombre) VALUES ('Ruso');
+INSERT INTO nacionalidad (nombre) VALUES ('Serbio');
+INSERT INTO nacionalidad (nombre) VALUES ('Sueco');
+INSERT INTO nacionalidad (nombre) VALUES ('Suizo');
+INSERT INTO nacionalidad (nombre) VALUES ('Ucraniano');
+INSERT INTO nacionalidad (nombre) VALUES ('Británico');
+
+-- Asia
+INSERT INTO nacionalidad (nombre) VALUES ('Afganos');
+INSERT INTO nacionalidad (nombre) VALUES ('Arabes Saudíes');
+INSERT INTO nacionalidad (nombre) VALUES ('Armenio');
+INSERT INTO nacionalidad (nombre) VALUES ('Azerbaiyano');
+INSERT INTO nacionalidad (nombre) VALUES ('Bangladeshí');
+INSERT INTO nacionalidad (nombre) VALUES ('Birmano');
+INSERT INTO nacionalidad (nombre) VALUES ('Butanés');
+INSERT INTO nacionalidad (nombre) VALUES ('Camboyano');
+INSERT INTO nacionalidad (nombre) VALUES ('Chino');
+INSERT INTO nacionalidad (nombre) VALUES ('Coreano');
+INSERT INTO nacionalidad (nombre) VALUES ('Emiratí');
+INSERT INTO nacionalidad (nombre) VALUES ('Filipino');
+INSERT INTO nacionalidad (nombre) VALUES ('Georgiano');
+INSERT INTO nacionalidad (nombre) VALUES ('Hindú');
+INSERT INTO nacionalidad (nombre) VALUES ('Indonesio');
+INSERT INTO nacionalidad (nombre) VALUES ('Iraní');
+INSERT INTO nacionalidad (nombre) VALUES ('Iraquí');
+INSERT INTO nacionalidad (nombre) VALUES ('Israelí');
+INSERT INTO nacionalidad (nombre) VALUES ('Japonés');
+INSERT INTO nacionalidad (nombre) VALUES ('Jordano');
+INSERT INTO nacionalidad (nombre) VALUES ('Kazajo');
+INSERT INTO nacionalidad (nombre) VALUES ('Kuwaití');
+INSERT INTO nacionalidad (nombre) VALUES ('Laosiano');
+INSERT INTO nacionalidad (nombre) VALUES ('Libanés');
+INSERT INTO nacionalidad (nombre) VALUES ('Malayo');
+INSERT INTO nacionalidad (nombre) VALUES ('Nepalés');
+INSERT INTO nacionalidad (nombre) VALUES ('Omaní');
+INSERT INTO nacionalidad (nombre) VALUES ('Pakistaní');
+INSERT INTO nacionalidad (nombre) VALUES ('Qatarí');
+INSERT INTO nacionalidad (nombre) VALUES ('Singapurense');
+INSERT INTO nacionalidad (nombre) VALUES ('Sirio');
+INSERT INTO nacionalidad (nombre) VALUES ('Tailandés');
+INSERT INTO nacionalidad (nombre) VALUES ('Turco');
+INSERT INTO nacionalidad (nombre) VALUES ('Uzbeco');
+INSERT INTO nacionalidad (nombre) VALUES ('Vietnamita');
+
+-- África
+INSERT INTO nacionalidad (nombre) VALUES ('Algeriano');
+INSERT INTO nacionalidad (nombre) VALUES ('Angoleño');
+INSERT INTO nacionalidad (nombre) VALUES ('Beninés');
+INSERT INTO nacionalidad (nombre) VALUES ('Botsuano');
+INSERT INTO nacionalidad (nombre) VALUES ('Burkinés');
+INSERT INTO nacionalidad (nombre) VALUES ('Burundés');
+INSERT INTO nacionalidad (nombre) VALUES ('Camerunés');
+INSERT INTO nacionalidad (nombre) VALUES ('Chadiano');
+INSERT INTO nacionalidad (nombre) VALUES ('Congoleño');
+INSERT INTO nacionalidad (nombre) VALUES ('Eritreo');
+INSERT INTO nacionalidad (nombre) VALUES ('Etíope');
+INSERT INTO nacionalidad (nombre) VALUES ('Gabonés');
+INSERT INTO nacionalidad (nombre) VALUES ('Ghanés');
+INSERT INTO nacionalidad (nombre) VALUES ('Guineano');
+INSERT INTO nacionalidad (nombre) VALUES ('Keniata');
+INSERT INTO nacionalidad (nombre) VALUES ('Liberiano');
+INSERT INTO nacionalidad (nombre) VALUES ('Libio');
+INSERT INTO nacionalidad (nombre) VALUES ('Malawiano');
+INSERT INTO nacionalidad (nombre) VALUES ('Malgache');
+INSERT INTO nacionalidad (nombre) VALUES ('Maliano');
+INSERT INTO nacionalidad (nombre) VALUES ('Marfileño');
+INSERT INTO nacionalidad (nombre) VALUES ('Mauriciano');
+INSERT INTO nacionalidad (nombre) VALUES ('Mozambiqueño');
+INSERT INTO nacionalidad (nombre) VALUES ('Namibio');
+INSERT INTO nacionalidad (nombre) VALUES ('Nigeriano');
+INSERT INTO nacionalidad (nombre) VALUES ('Senegalés');
+INSERT INTO nacionalidad (nombre) VALUES ('Somalí');
+INSERT INTO nacionalidad (nombre) VALUES ('Sudafricano');
+INSERT INTO nacionalidad (nombre) VALUES ('Sudanés');
+INSERT INTO nacionalidad (nombre) VALUES ('Tanzano');
+INSERT INTO nacionalidad (nombre) VALUES ('Togolés');
+INSERT INTO nacionalidad (nombre) VALUES ('Tunisino');
+INSERT INTO nacionalidad (nombre) VALUES ('Ugandés');
+INSERT INTO nacionalidad (nombre) VALUES ('Zambiano');
+INSERT INTO nacionalidad (nombre) VALUES ('Zimbabuense');
+
+-- Oceanía
+INSERT INTO nacionalidad (nombre) VALUES ('Australiano');
+INSERT INTO nacionalidad (nombre) VALUES ('Fiyiano');
+INSERT INTO nacionalidad (nombre) VALUES ('Kiribatiano');
+INSERT INTO nacionalidad (nombre) VALUES ('Marshaliano');
+INSERT INTO nacionalidad (nombre) VALUES ('Neozelandés');
+INSERT INTO nacionalidad (nombre) VALUES ('Palaunés');
+INSERT INTO nacionalidad (nombre) VALUES ('Salomonense');
+INSERT INTO nacionalidad (nombre) VALUES ('Tonga');
+INSERT INTO nacionalidad (nombre) VALUES ('Samoano');
+INSERT INTO nacionalidad (nombre) VALUES ('Vanuatuense');

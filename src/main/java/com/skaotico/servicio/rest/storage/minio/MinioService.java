@@ -57,4 +57,6 @@ public interface MinioService {
     void createBucketIfNotExists(String bucket) throws Exception;
 
     public String getFileUrl(String bucket, String objectPath)throws Exception;
+
+    public byte[] getFileBytes(String bucket, String objectPath) throws Exception;
 }

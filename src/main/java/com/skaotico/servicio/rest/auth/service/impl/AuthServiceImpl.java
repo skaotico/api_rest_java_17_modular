@@ -4,10 +4,11 @@ import com.skaotico.servicio.rest.auth.dto.AuthResponseDto;
 import com.skaotico.servicio.rest.auth.dto.LoginDto;
 import com.skaotico.servicio.rest.auth.dto.LoginResponseDto;
 import com.skaotico.servicio.rest.auth.service.AuthService;
-import com.skaotico.servicio.rest.security.JwtUtil;
+
 import com.skaotico.servicio.rest.usuario.model.Usuario;
 
 import com.skaotico.servicio.rest.usuario.service.UsuarioService;
+import com.skaotico.servicio.rest.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -52,7 +53,8 @@ public class AuthServiceImpl implements AuthService  {
             throw new RuntimeException("Credenciales incorrectas");
         }
 
-        String token = jwtUtil.generateToken(usuario.getEmail());
+        String token = jwtUtil.generateToken(usuario);
+
 
 
         return AuthResponseDto.builder()

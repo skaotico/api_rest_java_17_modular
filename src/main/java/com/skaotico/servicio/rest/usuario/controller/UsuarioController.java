@@ -1,19 +1,34 @@
 package com.skaotico.servicio.rest.usuario.controller;
 
+import com.skaotico.servicio.rest.arbol.dto.ImagenResponse;
 import com.skaotico.servicio.rest.usuario.dto.UsuarioCreateDTO;
 import com.skaotico.servicio.rest.usuario.model.Usuario;
 import com.skaotico.servicio.rest.usuario.service.UsuarioService;
+import org.springframework.web.bind.annotation.RequestPart;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import java.util.List;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Controlador REST para la gestión de Usuarios.
@@ -79,4 +94,37 @@ public class UsuarioController {
         Usuario usuario = usuarioService.obtenerUsuarioPorId(id);
         return ResponseEntity.ok(usuario);
     }
+
+
+/*
+    @PostMapping(value = "/imagen", consumes = "multipart/form-data")
+    public ResponseEntity<ImagenResponse> subirImagen(@RequestParam("file") MultipartFile file,@AuthenticationPrincipal Jwt jwt) {
+        if (file.isEmpty()) {
+            new ImagenResponse(null, "No se recibió ningún archivo");
+        }
+        try {
+            Map<String, Object> claims = jwt.getClaims();
+
+            String email = (String) claims.get("usuEmail");
+
+            return ResponseEntity.ok(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(500)
+                    .body(new ImagenResponse(null, "Ocurrió un error al subir la imagen: " + e.getMessage()));
+        }
+    }
+
+ */
+
+    @PostMapping(value = "/imagen", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "Subir imagen de usuario")
+    public String subirImagen(@AuthenticationPrincipal Jwt jwt,
+                              @RequestPart(name = "file", required = true) MultipartFile file) {
+      ;
+
+        usuarioService.guardarImagenUsuario(file,jwt);
+
+        return null;
+    }
+
 }

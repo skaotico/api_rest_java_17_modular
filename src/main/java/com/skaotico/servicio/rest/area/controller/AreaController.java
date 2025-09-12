@@ -1,6 +1,6 @@
 package com.skaotico.servicio.rest.area.controller;
 
-import com.skaotico.servicio.rest.area.dto.AreaDTO;
+import com.skaotico.servicio.rest.area.dto.Area;
 import com.skaotico.servicio.rest.area.dto.CreateAreaDTO;
 import com.skaotico.servicio.rest.area.service.AreaService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +28,7 @@ public class AreaController {
             @ApiResponse(responseCode = "400", description = "Datos inválidos")
     })
     @PostMapping
-    public ResponseEntity<AreaDTO> createArea(@RequestBody CreateAreaDTO createAreaDTO) {
+    public ResponseEntity<Area> createArea(@RequestBody CreateAreaDTO createAreaDTO) {
         return ResponseEntity.ok(areaService.createArea(createAreaDTO));
     }
 
@@ -38,23 +38,23 @@ public class AreaController {
             @ApiResponse(responseCode = "404", description = "Área no encontrada")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<AreaDTO> getArea(
+    public ResponseEntity<Area> getArea(
             @Parameter(description = "ID del área a obtener") @PathVariable Long id) {
         return ResponseEntity.ok(areaService.getAreaById(id));
     }
 
     @Operation(summary = "Listar todas las áreas", description = "Devuelve todas las áreas registradas")
     @GetMapping
-    public ResponseEntity<List<AreaDTO>> getAllAreas() {
+    public ResponseEntity<List<Area>> getAllAreas() {
         return ResponseEntity.ok(areaService.getAllAreas());
     }
 
     @Operation(summary = "Actualizar un área", description = "Actualiza los datos de un área existente")
     @PutMapping("/{id}")
-    public ResponseEntity<AreaDTO> updateArea(
+    public ResponseEntity<Area> updateArea(
             @Parameter(description = "ID del área a actualizar") @PathVariable Long id,
-            @RequestBody AreaDTO areaDTO) {
-        return ResponseEntity.ok(areaService.updateArea(id, areaDTO));
+            @RequestBody Area area) {
+        return ResponseEntity.ok(areaService.updateArea(id, area));
     }
 
     @Operation(summary = "Eliminar un área", description = "Elimina un área existente por su ID")
